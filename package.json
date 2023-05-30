@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build": "wing compile -t tf-aws main.w",
+    "deploy": "cd target/main.tfaws && terraform init && terraform apply -auto-approve"
+  },
+  "dependencies": {
+    "@cdktf/provider-aws": "^14.0.4",
+    "cdktf": "^0.16.1"
+  }
+}

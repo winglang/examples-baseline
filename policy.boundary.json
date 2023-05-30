@@ -1,0 +1,22 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+            "Effect": "Allow",
+            "Action": [
+              "s3:",
+              "sqs:*",
+              "lambda:*",
+              "sts:AssumeRole",
+              "logs:*",
+              "ecr:*"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "us-east-1"
+                }
+            }
+      }
+    ]
+}
