@@ -4,16 +4,21 @@ Enables provisioning of AWS IAM roles for use in Github Actions via [OIDC](https
 
 This is using a Terraform module (https://github.com/philips-labs/terraform-aws-github-oidc) to do the setup.
 
+## Repos
+
+- [Examples](./repos/examples/) (`207534322588`)
+- [Website](./repos/website/) (`914426143740`)
+
 ## Usage
 
 Since this is bootstrapping the usage of Github Actions, deployments have to be done locally right now.
 
+Get [pnpm](https://pnpm.io/installation)
+
 ```
-npm install
-wing compile -t tf-aws main.w
-cd ./target/main.tfaws
-terraform init
-terraform apply
+pnpm install
+pnpm run website:compile
+pnpm run website:deploy
 ```
 
 ## Terraform State

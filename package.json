@@ -1,10 +1,11 @@
 {
   "scripts": {
-    "build": "wing compile -t tf-aws main.w",
-    "deploy": "cd target/main.tfaws && terraform init && terraform apply -auto-approve"
+    "examples:compile": "cd repos/examples && wing compile -t tf-aws main.w",
+    "examples:plan": "cd repos/examples/target/main.tfaws && terraform init && terraform plan",
+    "examples:deploy": "cd repos/examples/target/main.tfaws && terraform init && terraform apply -auto-approve",
+    "website:compile": "cd repos/website && wing compile -t tf-aws main.w",
+    "website:plan": "cd repos/website/target/main.tfaws && terraform init && terraform plan",
+    "website:deploy": "cd repos/website/target/main.tfaws && terraform init && terraform apply -auto-approve"
   },
-  "dependencies": {
-    "@cdktf/provider-aws": "^14.0.4",
-    "cdktf": "^0.16.1"
-  }
+  "dependencies": {}
 }

@@ -1,0 +1,9 @@
+{
+  "name": "@repos/examples",
+  "private": true,
+  "dependencies": {
+    "@cdktf/provider-aws": "^14.0.4",
+    "cdktf": "^0.16.1",
+    "constructs": "^10.0.6"
+  }
+}
