@@ -23,6 +23,12 @@ class Policy {
 // needs to be present once in the account
 let provider = new cdktf.TerraformHclModule(
   source: "philips-labs/github-oidc/aws//modules/provider",
+  variables: {
+    thumbprint_list: [
+      "6938fd4d98bab03faadb97b34396831e3780aea1",
+      "1c58a3a8518e8759bf075b76b750d4f2df264fcd"
+    ]
+  }
 ) as "provider";
 
 let base = new Policy("generic-action", "policy.json");
