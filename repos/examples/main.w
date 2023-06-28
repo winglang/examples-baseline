@@ -31,11 +31,11 @@ let provider = new cdktf.TerraformHclModule(
   }
 ) as "provider";
 
+// ~~~ Examples Repo winglang/examples ~~~
+
 let base = new Policy("generic-action", "policy.json");
 let cfn = new Policy("cfn-action", "policy.cfn.json") as "policy-cfn";
 let boundary = new Policy("boundary", "policy.boundary.json") as "policy-boundary";
-
-// the actual repo role definition via the module
 
 let repo = new cdktf.TerraformHclModule(
   source: "philips-labs/github-oidc/aws",
@@ -67,3 +67,29 @@ new cdktf.TerraformOutput(
 new cdktf.TerraformOutput(
   value: base.policy.arn
 ) as "policy-base-arn";
+
+
+// ~~~ Github Action Repo winglang/wing-github-action ~~~
+
+
+let githubActionPolicy = new Policy("github-action-policy", "github-action-policy.json") as "github-action-policy";
+let githubActionRepo = new cdktf.TerraformHclModule(
+  source: "philips-labs/github-oidc/aws",
+  variables: {
+    openid_connect_provider_arn: provider.get("openid_connect_provider.arn"),
+    repo: "winglang/wing-github-action",
+    role_name: "wing-github-action",
+    default_conditions: ["allow_main"],
+    role_policy_arns: [githubActionPolicy.policy.arn],
+    conditions: [{
+      test: "StringLike",
+      variable: "token.actions.githubusercontent.com:sub",
+      values: cdktf.Token.asString(["repo:winglang/wing-github-action:pull_request"])
+    }]
+  }
+) as "wing-github-action";
+
+// get the role arn for the github action
+new cdktf.TerraformOutput(
+  value: githubActionRepo.get("role.arn")
+) as "github-action-role-arn";
