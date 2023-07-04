@@ -39,6 +39,7 @@
             "Action": [
                 "cloudfront:Get*",
                 "cloudfront:List*",
+                "cloudfront:Describe*",
                 "cloudfront:TestFunction"
             ],
             "Resource": "*",
