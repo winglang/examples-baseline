@@ -29,7 +29,7 @@ class Policy {
 let provider = new cdktf.TerraformHclModule(
   source: "philips-labs/github-oidc/aws//modules/provider",
   variables: {
-    thumbprint_list: [
+    "thumbprint_list" => [
       "6938fd4d98bab03faadb97b34396831e3780aea1",
       "1c58a3a8518e8759bf075b76b750d4f2df264fcd"
     ]
@@ -42,15 +42,15 @@ let readOnlyPolicy = new Policy("read-only-action", "policy.read-only.json") as 
 let repo = new cdktf.TerraformHclModule(
   source: "philips-labs/github-oidc/aws",
   variables: {
-    openid_connect_provider_arn: provider.get("openid_connect_provider.arn"),
-    repo: repoName,
-    role_name: repoNameNormalized,
-    default_conditions: ["allow_main"],
-    role_policy_arns: [base.policy.arn],
-    conditions: [{
-      test: "StringLike",
-      variable: "token.actions.githubusercontent.com:sub",
-      values: cdktf.Token.asString(["repo:${repoName}:pull_request"])
+    "openid_connect_provider_arn" => provider.get("openid_connect_provider.arn"),
+    "repo" => repoName,
+    "role_name" => repoNameNormalized,
+    "default_conditions" => ["allow_main"],
+    "role_policy_arns" => [base.policy.arn],
+    "conditions" => [{
+      "test" => "StringLike",
+      "variable" => "token.actions.githubusercontent.com:sub",
+      "values" => cdktf.Token.asString(["repo:${repoName}:pull_request"])
     }]
   }
 );
@@ -58,15 +58,15 @@ let repo = new cdktf.TerraformHclModule(
 let readOnly = new cdktf.TerraformHclModule(
   source: "philips-labs/github-oidc/aws",
   variables: {
-    openid_connect_provider_arn: provider.get("openid_connect_provider.arn"),
-    repo: repoName,
-    role_name: "${repoNameNormalized}-read-only",
-    default_conditions: ["allow_main"],
-    role_policy_arns: [readOnlyPolicy.policy.arn],
-    conditions: [{
-      test: "StringLike",
-      variable: "token.actions.githubusercontent.com:sub",
-      values: cdktf.Token.asString(["repo:${repoName}:pull_request"])
+    "openid_connect_provider_arn" => provider.get("openid_connect_provider.arn"),
+    "repo" => repoName,
+    "role_name" => "${repoNameNormalized}-read-only",
+    "default_conditions" => ["allow_main"],
+    "role_policy_arns" => [readOnlyPolicy.policy.arn],
+    "conditions" => [{
+      "test" => "StringLike",
+      "variable" => "token.actions.githubusercontent.com:sub",
+      "values" => cdktf.Token.asString(["repo:${repoName}:pull_request"])
     }]
   }
 ) as "read-only";

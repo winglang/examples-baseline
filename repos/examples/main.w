@@ -24,7 +24,7 @@ class Policy {
 let provider = new cdktf.TerraformHclModule(
   source: "philips-labs/github-oidc/aws//modules/provider",
   variables: {
-    thumbprint_list: [
+    "thumbprint_list" => [
       "6938fd4d98bab03faadb97b34396831e3780aea1",
       "1c58a3a8518e8759bf075b76b750d4f2df264fcd"
     ]
@@ -40,15 +40,15 @@ let boundary = new Policy("boundary", "policy.boundary.json") as "policy-boundar
 let repo = new cdktf.TerraformHclModule(
   source: "philips-labs/github-oidc/aws",
   variables: {
-    openid_connect_provider_arn: provider.get("openid_connect_provider.arn"),
-    repo: "winglang/examples",
-    role_name: "wing-examples",
-    default_conditions: ["allow_main"],
-    role_policy_arns: [base.policy.arn, cfn.policy.arn],
-    conditions: [{
-      test: "StringLike",
-      variable: "token.actions.githubusercontent.com:sub",
-      values: cdktf.Token.asString(["repo:winglang/examples:pull_request"])
+    "openid_connect_provider_arn" => provider.get("openid_connect_provider.arn"),
+    "repo" => "winglang/examples",
+    "role_name" => "wing-examples",
+    "default_conditions" => ["allow_main"],
+    "role_policy_arns" => [base.policy.arn, cfn.policy.arn],
+    "conditions" => [{
+      "test" => "StringLike",
+      "variable" => "token.actions.githubusercontent.com:sub",
+      "values" => cdktf.Token.asString(["repo:winglang/examples:pull_request"])
     }]
   }
 ) as "examples-repo";
@@ -76,15 +76,15 @@ let githubActionPolicy = new Policy("github-action-policy", "github-action-polic
 let githubActionRepo = new cdktf.TerraformHclModule(
   source: "philips-labs/github-oidc/aws",
   variables: {
-    openid_connect_provider_arn: provider.get("openid_connect_provider.arn"),
-    repo: "winglang/wing-github-action",
-    role_name: "wing-github-action",
-    default_conditions: ["allow_main"],
-    role_policy_arns: [githubActionPolicy.policy.arn],
-    conditions: [{
-      test: "StringLike",
-      variable: "token.actions.githubusercontent.com:sub",
-      values: cdktf.Token.asString(["repo:winglang/wing-github-action:pull_request"])
+    "openid_connect_provider_arn" => provider.get("openid_connect_provider.arn"),
+    "repo" => "winglang/wing-github-action",
+    "role_name" => "wing-github-action",
+    "default_conditions" => ["allow_main"],
+    "role_policy_arns" => [githubActionPolicy.policy.arn],
+    "conditions" => [{
+      "test" => "StringLike",
+      "variable" => "token.actions.githubusercontent.com:sub",
+      "values" => cdktf.Token.asString(["repo:winglang/wing-github-action:pull_request"])
     }]
   }
 ) as "wing-github-action";
