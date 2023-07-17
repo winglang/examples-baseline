@@ -5,7 +5,8 @@
             "Effect": "Allow",
             "Action": [
                 "iam:*",
-                "s3:*"
+                "s3:*",
+                "sqs:*"
             ],
             "Resource": "*"
         },
@@ -18,7 +19,8 @@
                 "ecr:*",
                 "ssm:*",
                 "ec2:*",
-                "elasticache:*"
+                "elasticache:*",
+                "apigateway:*"
             ],
             "Resource": "*",
             "Condition": {
