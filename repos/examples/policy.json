@@ -16,7 +16,9 @@
                 "sqs:*",
                 "logs:*",
                 "ecr:*",
-                "ssm:*"
+                "ssm:*",
+                "ec2:*",
+                "elasticache:*"
             ],
             "Resource": "*",
             "Condition": {
