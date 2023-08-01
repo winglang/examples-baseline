@@ -19,8 +19,10 @@
                 "ecr:*",
                 "ssm:*",
                 "ec2:*",
+                "dynamodb:*",
                 "elasticache:*",
-                "apigateway:*"
+                "apigateway:*",
+                "cloudfront:*"
             ],
             "Resource": "*",
             "Condition": {
