@@ -37,10 +37,25 @@
         {
             "Effect": "Allow",
             "Action": [
+                "iam:Get*",
+                "iam:List*",
+                "iam:Describe*",
+                "lambda:Get*",
+                "lambda:List*",
+                "lambda:Describe*",
+                "lambda:InvokeFunction"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
                 "cloudfront:Get*",
                 "cloudfront:List*",
                 "cloudfront:Describe*",
-                "cloudfront:TestFunction"
+                "cloudfront:TestFunction",
+                "cloudfront:CreateFunction",
+                "cloudfront:DeleteFunction"
             ],
             "Resource": "*",
             "Condition": {

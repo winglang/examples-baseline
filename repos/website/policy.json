@@ -42,7 +42,17 @@
         {
             "Effect": "Allow",
             "Action": [
-                "cloudfront:*"
+                "cloudfront:*",
+                "iam:*",
+                "s3:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "lambda:*",
+                "logs:*"
             ],
             "Resource": "*",
             "Condition": {
