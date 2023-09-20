@@ -93,3 +93,27 @@ let githubActionRepo = new cdktf.TerraformHclModule(
 new cdktf.TerraformOutput(
   value: githubActionRepo.get("role.arn")
 ) as "github-action-role-arn";
+
+
+// ~~~ Static Website winglang/example-static-website ~~~
+
+let staticWebsite = new cdktf.TerraformHclModule(
+  source: "philips-labs/github-oidc/aws",
+  variables: {
+    "openid_connect_provider_arn" => provider.get("openid_connect_provider.arn"),
+    "repo" => "winglang/example-static-website",
+    "role_name" => "example-static-website",
+    "default_conditions" => ["allow_main"],
+    "role_policy_arns" => [base.policy.arn, cfn.policy.arn],
+    "conditions" => [{
+      "test" => "StringLike",
+      "variable" => "token.actions.githubusercontent.com:sub",
+      "values" => cdktf.Token.asString(["repo:winglang/example-static-website:pull_request"])
+    }]
+  }
+) as "static-website-repo";
+
+// get the role arn for the github action
+new cdktf.TerraformOutput(
+  value: staticWebsite.get("role.arn")
+) as "static-website-role-arn";
